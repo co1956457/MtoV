@@ -23,7 +23,7 @@ C:\…\MultiCommentViewer\plugins\MtoV\MtoVPlugin.dll
 C:\…\MultiCommentViewer\plugins\MtoV\MtoV.txt
 
 ４．MtoV.txt に CommentBaton VCI の場所を書いてください。
-C:\Users\%ユーザー名%\AppData\LocalLow\infiniteloopCo,Ltd\VirtualCast\EmbeddedScriptWorkspace\CommentBaton
+C:\Users\%ユーザー名%\AppData\LocalLow\infiniteloop Co,Ltd\VirtualCast\EmbeddedScriptWorkspace\CommentBaton
 
 ５．マルチコメントビューアを立ち上げてください。
 
@@ -59,7 +59,7 @@ C:\…\MultiCommentViewer\plugins\MtoV\MtoVPlugin.dll
 C:\…\MultiCommentViewer\plugins\MtoV\MtoV.txt
 
 4. Please write the CommentBaton VCI directory in the MtoV.txt.
-C:\Users\%UserName%\AppData\LocalLow\infiniteloopCo,Ltd\VirtualCast\EmbeddedScriptWorkspace\CommentBaton
+C:\Users\%UserName%\AppData\LocalLow\infiniteloop Co,Ltd\VirtualCast\EmbeddedScriptWorkspace\CommentBaton
 
 5. Please boot MultiCommentViewer.
 
