@@ -7,6 +7,7 @@
 //               cytanb ver. Commits on Jul 24, 2020.
 // 20201003 v1.1 cytanbをモジュール化 (ver. Commits on Sep 29, 2020)
 // 20201003 v1.2 設定ファイルの改行対応
+// 20201004 v1.3 local cytanb -> cytanb
 //
 using System;
 using System.IO;
@@ -244,7 +245,7 @@ namespace MtoVPlugin
                 // cytanb.EmitCommentMessage の実行は IsMine の中に書くこと。そうしないとゲストの人数分実行されてしまう。
                 // cytanb ver. Commits on Sep 29, 2020
                 // \ -> \\      ' -> \'     " -> \"
-                s1 = "local cytanb = cytanb or require(\'cytanb\')(_ENV)\n\nif vci.assets.IsMine then\n";
+                s1 = "cytanb = cytanb or require(\'cytanb\')(_ENV)\n\nif vci.assets.IsMine then\n";
 
                 // 接続時は最新データーを１件
                 // それ以外はたまっていたもの全部
