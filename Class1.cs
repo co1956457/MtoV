@@ -6,6 +6,7 @@
 // 20200725 v1.0 Taki co1956457
 //               cytanb ver. Commits on Jul 24, 2020.
 // 20201003 v1.1 cytanbをモジュール化 (ver. Commits on Sep 29, 2020)
+// 20201003 v1.2 設定ファイルの改行対応
 //
 using System;
 using System.IO;
@@ -609,6 +610,7 @@ namespace MtoVPlugin
             {
                 // ディレクトリ確認
                 targetDirectory = File.ReadAllText(readPath);
+                targetDirectory = targetDirectory.Replace("\r", "").Replace("\n", "");　// 設定ファイルの改行を削除
                 string[] strF = targetDirectory.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (strF[strF.Length - 1] == "CommentBaton") // フォルダ名が CommentBaton
