@@ -2,7 +2,7 @@
 これはマルチコメントビューアのプラグインです。
 マルチコメントビューアで受け取ったコメントを CommentBaton VCI に送ります。
 これにより、縦書きコメビュに ニコニコ生放送、SHOWROOM、Twitter 以外のコメントが表示されるようになります。
-（Youtube ライブ、TwitCasting、LINE LIVE、Mildom、Mirrativ、Mixer、OPENREC、Periscope、TwitchSite、ふわっち）
+（Youtube ライブ、TwitCasting、LINE LIVE、Mildom、Mirrativ、OPENREC、Periscope、TwitchSite、ふわっち）
 
 マルチコメントビューアはこちらから入手できます。
 https://ryu-s.github.io/app/multicommentviewer
@@ -39,7 +39,7 @@ C:\Users\%ユーザー名%\AppData\LocalLow\infiniteloop Co,Ltd\VirtualCast\Embe
 This is MultiCommentViewer plugin.
 This plugin sends the comments to CommentBaton VCI.
 Then, Vertical Comment Viewer VCI would be able to show the comments from these sites.
-(Youtube Live, TwitCasting, LINE LIVE, Mildom, Mirrativ,、Mixer, OPENREC, Periscope, TwitchSite, Whowatch)
+(Youtube Live, TwitCasting, LINE LIVE, Mildom, Mirrativ, OPENREC, Periscope, TwitchSite, Whowatch)
 
 You can get Multicommentviewer from this page.
 https://ryu-s.github.io/app/multicommentviewer
