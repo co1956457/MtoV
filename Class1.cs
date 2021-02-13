@@ -8,6 +8,7 @@
 // 20201003 v1.1 cytanbをモジュール化 (ver. Commits on Sep 29, 2020)
 // 20201003 v1.2 設定ファイルの改行対応
 // 20201004 v1.3 local cytanb -> cytanb
+// 20210213 v1.4 Mixer をコメントアウト Comment out the Mixer
 //
 using System;
 using System.IO;
@@ -31,7 +32,7 @@ using TwicasSitePlugin;
 using LineLiveSitePlugin;
 using MildomSitePlugin;
 using MirrativSitePlugin;
-using MixerSitePlugin;
+//using MixerSitePlugin;
 using OpenrecSitePlugin;
 using PeriscopeSitePlugin;
 using TwitchSitePlugin;
@@ -71,8 +72,8 @@ namespace MtoVPlugin
     [Export(typeof(IPlugin))]
     public class MtoVPlugin : IPlugin, IDisposable
     {
-        public string Name { get { return "MtoV [停止/開始]"; } }
-        public string Description { get { return "ＭからＶへ　コメントを送る"; } }
+        public string Name { get { return "MtoV [停止(Stop)/開始(Start)]"; } }
+        public string Description { get { return "MCVからVCへ コメントを送る"; } }
         public IPluginHost Host { get; set; }
 
         // プラグインの起動・停止
@@ -431,35 +432,35 @@ namespace MtoVPlugin
                 }
             }
             // Mixer
-            else if (message is IMixerMessage MixerMessage)
-            {
-                cmntSource = "Mixer";
-                switch (MixerMessage.MixerMessageType)
-                {
-                    case MixerMessageType.Connected:
-                        // name = null;
-                        name = "（運営）";
-                        comment = (MixerMessage as IMixerConnected).Text;
-                        break;
-                    case MixerMessageType.Disconnected:
-                        // name = null;
-                        name = "（運営）";
-                        comment = (MixerMessage as IMixerDisconnected).Text;
-                        break;
-                    case MixerMessageType.Comment:
-                        name = (MixerMessage as IMixerComment).UserName;
-                        comment = (MixerMessage as IMixerComment).CommentItems.ToText();
-                        break;
-                        //case MixerMessageType.Join:
-                        //        name = null;
-                        //        comment = (MixerMessage as IMixerJoin).CommentItems.ToText();
-                        //    break;
-                        //case MixerMessageType.Leave:
-                        //        name = null;
-                        //        comment = (MixerMessage as IMixerLeave).CommentItems.ToText();
-                        //    break;
-                }
-            }
+            //else if (message is IMixerMessage MixerMessage)
+            //{
+            //    cmntSource = "Mixer";
+            //    switch (MixerMessage.MixerMessageType)
+            //    {
+            //        case MixerMessageType.Connected:
+            //            // name = null;
+            //            name = "（運営）";
+            //            comment = (MixerMessage as IMixerConnected).Text;
+            //            break;
+            //        case MixerMessageType.Disconnected:
+            //            // name = null;
+            //            name = "（運営）";
+            //            comment = (MixerMessage as IMixerDisconnected).Text;
+            //            break;
+            //        case MixerMessageType.Comment:
+            //            name = (MixerMessage as IMixerComment).UserName;
+            //            comment = (MixerMessage as IMixerComment).CommentItems.ToText();
+            //            break;
+            //            //case MixerMessageType.Join:
+            //            //        name = null;
+            //            //        comment = (MixerMessage as IMixerJoin).CommentItems.ToText();
+            //            //    break;
+            //            //case MixerMessageType.Leave:
+            //            //        name = null;
+            //            //        comment = (MixerMessage as IMixerLeave).CommentItems.ToText();
+            //            //    break;
+            //    }
+            //}
             // Openrec
             else if (message is IOpenrecMessage openrecMessage)
             {
