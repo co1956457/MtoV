@@ -10,6 +10,7 @@
 // 20201004 v1.3 local cytanb -> cytanb
 // 20210213 v1.4 Mixer をコメントアウト Comment out the Mixer
 // 20210218 v2.0 転送モード Transfer mode
+// 20210301 v2.1 7000 -> 8000ms　スーパーチャットコメント修正 fixed YouTube Live super chat comment
 
 using System;
 using System.ComponentModel.Composition;    // [Export(typeof(IPlugin))]
@@ -128,7 +129,7 @@ namespace MtoVPlugin
                     // タイマー設定
                     // コメントがないときに一時停止する方法は保留
                     timer.Elapsed += new ElapsedEventHandler(OnElapsed_TimersTimer);
-                    timer.Interval = 7000;
+                    timer.Interval = 8000;
 
                     // タイマー開始
                     timer.Start();
@@ -371,7 +372,7 @@ namespace MtoVPlugin
                     case YouTubeLiveMessageType.Superchat:
                         name = (youTubeLiveMessage as IYouTubeLiveSuperchat).NameItems.ToText();
                         // comment = (youTubeLiveMessage as IYouTubeLiveSuperchat).CommentItems.ToText();
-                        comment = (youTubeLiveMessage as IYouTubeLiveSuperchat).CommentItems.ToTextWithImageAlt();
+                        comment = (youTubeLiveMessage as IYouTubeLiveSuperchat).PurchaseAmount + " " + (youTubeLiveMessage as IYouTubeLiveSuperchat).CommentItems.ToTextWithImageAlt();
                         // 縦書きコメビュで強調できるように cmntSource を変えておく
                         cmntSource = "YoutubeliveSC";
                         break;
