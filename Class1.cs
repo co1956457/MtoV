@@ -1,5 +1,6 @@
-// https://github.com/CommentViewerCollection/MultiCommentViewer    BouyomiPlugin を参考に作成                           GPL-3.0 License 
-// https://github.com/oocytanb                                      CommentBaton から縦書きコメビュにメッセージを送る    MIT License
+// https://github.com/CommentViewerCollection/MultiCommentViewer    BouyomiPlugin を参考に作成                            GPL-3.0 License 
+// https://github.com/oocytanb                                      CommentBaton から縦書きコメビュにメッセージを送る     MIT License
+//                                                                  /cytanb-vci-comment-plugin 内 cytanb-comment-source v0.9.2 の送信部分をモジュール実装
 //
 // SPDX-License-Identifier: GPL-3.0    // ベースにした MultiCommentViewer の BouyomiPlugin が GPL-3.0 なので。
 //
@@ -11,6 +12,7 @@
 // 20210213 v1.4 Mixer をコメントアウト Comment out the Mixer
 // 20210218 v2.0 転送モード Transfer mode
 // 20210301 v2.1 7000 -> 8000ms　スーパーチャットコメント修正 fixed YouTube Live super chat comment
+// 20220605 v3.0 1フレーム1コメント方式
 
 using System;
 using System.ComponentModel.Composition;    // [Export(typeof(IPlugin))]
@@ -74,7 +76,7 @@ namespace MtoVPlugin
     public class Class1 : IPlugin, IDisposable
     {
         public string Name { get { return "MtoV 設定(Settings)"; } }
-        public string Description { get { return "MCVからVCへコメント転送"; } }
+        public string Description { get { return "MCVからVirtualCastへコメント転送"; } }
         public IPluginHost Host { get; set; }
 
         // Form用
@@ -85,9 +87,9 @@ namespace MtoVPlugin
 
         // プラグインの状態
         // transferMode
-        //  0:転送しない　off
-        //  1:部分転送  　スタジオモード（ニコ生：運営のみ　SH：転送なし　他YtTc等：転送）    Studio mode (Ni:Control command, SH:Off, Yt,Tc,etc:On)
-        //  2:全転送 ALL  ルームモード room mode
+        //  0: 転送しない OFF
+        //  1: スタジオ STUDIO [Ni:運営 Special] [SH:無 N/A] [YT等:全転送 ALL]
+        //  2: ルーム ROOM [全転送 ALL]
         public int transferMode;
         
         // 起動時にだけファイルから転送モードを読み込む
@@ -220,7 +222,7 @@ namespace MtoVPlugin
                 else // 全転送 (transferMode ==2)
                 {
                     // 追加
-                    buffEmit.Add("    cytanb.EmitCommentMessage(\'" + _comment + "\', {name = \'" + _name + "\', commentSource = \'" + _cmntSource + "\'})");
+                    buffEmit.Add("        {value = \'" + comment + "\', sender = {name = \'" + name + "\', type = \'comment\', commentSource = \'" + _cmntSource + "\',},},");
                 }
             }
             else
@@ -240,16 +242,15 @@ namespace MtoVPlugin
             buffEmit.Clear();
 
             // 新しいコメントがあれば main.lua 上書き
-            if(emitCmnt[0] != "")
+            if (emitCmnt[0] != "")
             {
                 string s1;
                 string s2;
                 string s3;
 
-                // cytanb.EmitCommentMessage の実行は IsMine の中に書くこと。そうしないとゲストの人数分実行されてしまう。
-                // cytanb ver. Commits on Sep 29, 2020
+                // cytanb = cytanb or require('cytanb')(_ENV)は IsMine の中(ゲストの負荷軽減)。cytanb.EmitCommentMessage は update の中(1フレーム1コメント)。
                 // \ -> \\      ' -> \'     " -> \"
-                s1 = "cytanb = cytanb or require(\'cytanb\')(_ENV)\n\nif vci.assets.IsMine then\n";
+                s1 = "local num = 1\nlocal commentList = {}\n\nif vci.assets.IsMine then\n    cytanb = cytanb or require('cytanb')(_ENV)\n    commentList = {\n";
 
                 // 接続時は最新データーを１件
                 // それ以外はたまっていたもの全部
@@ -266,11 +267,10 @@ namespace MtoVPlugin
                 }
                 emitCmnt.Clear();
 
-
                 // 念のため最後に \n を入れておく
                 // タイミングによっては Visual Studio Code で警告が出る場合がある？　よくわからない
                 // なくても正常に動作はする
-                s3 = "\nend\n";
+                s3 = "\n    }\nend\n\nfunction update()\n    if num <= #commentList then\n        local entry = commentList[num]\n        cytanb.EmitCommentMessage(entry.value, entry.sender)\n        num = num + 1\n    end\nend\n";
 
                 File.WriteAllText(targetPath, s1 + s2 + s3);
             }
