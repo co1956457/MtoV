@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -43,7 +43,7 @@ namespace MtoVPlugin
             radio0.Name = "0";
             radio0.Width = 520;
             radio0.Height = 35;
-            radio0.Text = "0:転送しない OFF";
+            radio0.Text = "0: 転送しない OFF";
             radio0.Top = 20;
             radio0.Left = 25;
             if (tMode == 0)
@@ -60,7 +60,7 @@ namespace MtoVPlugin
             radio1.Name = "1";
             radio1.Width = 520;
             radio1.Height = 35;
-            radio1.Text = "1:部分転送 Part   [Ni:運営 Special] [SH:無 N/A] [Yt,Tc,Tw,Wh,OR:全 All]";
+            radio1.Text = "1: スタジオ STUDIO [Ni:運営 Special] [SH:無 N/A] [YT等:全転送 ALL]";
             radio1.Top = 50;
             radio1.Left = 25;
             if (tMode == 1)
@@ -77,7 +77,7 @@ namespace MtoVPlugin
             radio2.Name = "2";
             radio2.Width = 520;
             radio2.Height = 35;
-            radio2.Text = "2:全転送 ALL";
+            radio2.Text = "2: ルーム ROOM [全転送 ALL]";
             radio2.Top = 85;
             radio2.Left = 25;
             if (tMode == 2)
